@@ -1,0 +1,107 @@
+body {
+    background-color: gray;
+}
+
+.slides {
+    background-color: rgba(255, 255, 255, 0.351);
+    border-radius: 45px;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 510px;
+    height: 320px;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 0 20px greenyellow;
+
+}
+
+.slide {
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide img {
+    box-shadow: 0 0 20px greenyellow;
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 500px;
+    height: 50px;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
+.controls button {
+    width: 220px;
+    border-radius: 45px;
+    font-size: large;
+    letter-spacing: 4px;
+    text-shadow: 0 0 5px (0, 0, 0, 0.8);
+    background-color: antiquewhite;
+    cursor: pointer;
+    border: 0;
+}
+
+.controls button:last-child:hover {
+    background-color: greenyellow;
+    height: 105%;
+}
+
+.controls button:first-child:hover {
+    background-color: pink;
+    height: 105%;
+}
+
+.indicators {
+    display: flex;
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 200px;
+    gap: 44px;
+    align-items: center;
+}
+
+.indicator {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border-radius: 50%;
+    background-color: yellowgreen;
+    cursor: pointer;
+}
+.indicator:hover {
+    box-shadow: 0 0 10px red;
+}
+.indicator.active {
+    background-color: palevioletred;
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width:500px) {
+    .slides {
+        width: 360px;
+    }
+    .slide {
+        height: 320px;
+    }
+    .indicators {
+        margin-top: 100px;
+    }
+
+    .controls {
+        display: none;
+    }
+}
