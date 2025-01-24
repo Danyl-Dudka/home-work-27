@@ -3,6 +3,7 @@ body {
 }
 
 .slides {
+    position: relative;
     background-color: rgba(255, 255, 255, 0.351);
     border-radius: 45px;
     margin: 0 auto;
@@ -10,20 +11,23 @@ body {
     width: 510px;
     height: 320px;
     display: flex;
-    overflow: hidden;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     box-shadow: 0 0 20px greenyellow;
-
+    overflow: hidden;
 }
 
 .slide {
-    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
 
 .slide.active {
-    display: block;
+    opacity: 1;
 }
 
 .slide img {
