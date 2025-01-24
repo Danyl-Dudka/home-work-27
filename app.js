@@ -30,8 +30,10 @@ function stopShowing() {
         if (event.code === "Space") {
             if (isPlaying) {
                 clearInterval(slideInterval);
+                slideInterval = null;
                 console.log("Slider is stopped");
             } else {
+                clearInterval(slideInterval);
                 slideInterval = setInterval(nextSlide, interval);
                 console.log("Slider is playing");
             }
