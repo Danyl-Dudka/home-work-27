@@ -7,10 +7,7 @@ const prevButton = document.querySelector('.prev-btn');
 const indicator = document.querySelector('.indicators').children;
 let start;
 let end;
-function resetSlideInterval() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, interval);
-}
+
 function nextSlide() {
     clearInterval(slideInterval);
     slidesElement.children[currentSlide].classList.remove('active');
@@ -24,6 +21,26 @@ function nextSlide() {
     indicator[currentSlide].classList.add('active');
     slideInterval = setInterval(nextSlide, interval);
 }
+
+function prevSlide() {
+    clearInterval(slideInterval);
+    slidesElement.children[currentSlide].classList.remove('active');
+    indicator[currentSlide].classList.remove('active');
+    if (currentSlide === 0) {
+        currentSlide = slidesElement.children.length - 1;
+    } else {
+        currentSlide--;
+    }
+    slidesElement.children[currentSlide].classList.add('active');
+    indicator[currentSlide].classList.add('active');
+    slideInterval = setInterval(nextSlide, interval);
+}
+
+function changeSlides() {
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
+}
+
 function stopShowing() {
     let isPlaying = true;
     document.addEventListener('keydown', (event) => {
@@ -42,23 +59,24 @@ function stopShowing() {
     })
 }
 
-function prevSlide() {
+function activateSlide(index) {
     clearInterval(slideInterval);
     slidesElement.children[currentSlide].classList.remove('active');
     indicator[currentSlide].classList.remove('active');
-    if (currentSlide === 0) {
-        currentSlide = slidesElement.children.length - 1;
-    } else {
-        currentSlide--;
-    }
+
+    currentSlide = index;
+
     slidesElement.children[currentSlide].classList.add('active');
     indicator[currentSlide].classList.add('active');
-    resetSlideInterval();
+    slideInterval = setInterval(nextSlide, interval);
 }
 
-function changeSlides() {
-    nextButton.addEventListener('click', nextSlide);
-    prevButton.addEventListener('click', prevSlide);
+function activateIndicator() {
+    for (let i = 0; i < indicator.length; i++) {
+        indicator[i].addEventListener('click', () => {
+            activateSlide(i);
+        })
+    }
 }
 
 function handleKeyboardControl() {
@@ -71,25 +89,6 @@ function handleKeyboardControl() {
     })
 }
 
-function activateSlide(index) {
-    clearInterval(slideInterval);
-    slidesElement.children[currentSlide].classList.remove('active');
-    indicator[currentSlide].classList.remove('active');
-
-    currentSlide = index;
-
-    slidesElement.children[currentSlide].classList.add('active');
-    indicator[currentSlide].classList.add('active');
-    resetSlideInterval();
-}
-
-function activateIndicator() {
-    for (let i = 0; i < indicator.length; i++) {
-        indicator[i].addEventListener('click', () => {
-            activateSlide(i);
-        })
-    }
-}
 slidesElement.addEventListener('touchstart', (event) => {
     clearInterval(slideInterval);
     start = event.touches[0].clientX;
@@ -104,7 +103,8 @@ slidesElement.addEventListener('touchend', (event) => {
         nextSlide();
     }
     event.preventDefault();
-    resetSlideInterval();
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, interval);
 })
 
 activateIndicator();
